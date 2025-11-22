@@ -74,7 +74,7 @@ const AddItem = () => {
       <DialogTrigger asChild>
         <Button value="add-item" my={4}>
           <FaPlus fontSize="16px" />
-          Add Item
+          Add Workout
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -96,6 +96,18 @@ const AddItem = () => {
                     required: "Title is required.",
                   })}
                   placeholder="Title"
+                  type="text"
+                />
+              </Field>
+
+              <Field
+                invalid={!!errors.description}
+                errorText={errors.description?.message}
+                label="Description"
+              >
+                <Input
+                  {...register("description")}
+                  placeholder="Description"
                   type="text"
                 />
               </Field>

@@ -3,6 +3,7 @@ from sqlmodel import Session, create_engine, select
 from app import crud
 from app.core.config import settings
 from app.models import User, UserCreate
+from app.models import Exercise, ExerciseCreate
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
@@ -31,3 +32,14 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = crud.create_user(session=session, user_create=user_in)
+    
+    # inital exercises
+    exercise = session.exec(
+        select(Exercise).where(Exercise.title == "curls")
+    ).first()
+    if not exercise:
+        exercise_in = ExerciseCreate(
+            title="curls",
+            description="an exercise where you flex your biceps while holding dumbbells"
+        )
+        item = crud.create_exercise(session=session, exercise_in=exercise_in)

@@ -80,6 +80,21 @@ class Item(ItemBase, table=True):
     )
     owner: User | None = Relationship(back_populates="items")
 
+# Database model for exercises
+class ExerciseBase(SQLModel):
+    #id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    title: str | None = Field(default=None, min_length=1, max_length=255)
+    description: str | None = Field(default=None, min_length=1, max_length=255)
+
+class Exercise(ExerciseBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    
+class ExerciseCreate(ExerciseBase):
+    pass
+
+# Properties to receive on item update
+class ExerciseUpdate(ExerciseBase):
+    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
 
 # Properties to return via API, id is always required
 class ItemPublic(ItemBase):
