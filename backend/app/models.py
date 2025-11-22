@@ -95,6 +95,14 @@ class ExerciseCreate(ExerciseBase):
 # Properties to receive on item update
 class ExerciseUpdate(ExerciseBase):
     title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
+    
+# Properties to return via API, id is always required
+class ExercisePublic(ExerciseBase):
+    id: uuid.UUID
+    
+class ExercisesPublic(SQLModel):
+    data: list[ExercisePublic]
+    count: int
 
 # Properties to return via API, id is always required
 class ItemPublic(ItemBase):
