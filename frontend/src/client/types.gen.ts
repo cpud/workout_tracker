@@ -9,6 +9,27 @@ export type Body_login_login_access_token = {
     client_secret?: (string | null);
 };
 
+export type ExerciseCreate = {
+    title?: (string | null);
+    description?: (string | null);
+};
+
+export type ExercisePublic = {
+    title?: (string | null);
+    description?: (string | null);
+    id: string;
+};
+
+export type ExercisesPublic = {
+    data: Array<ExercisePublic>;
+    count: number;
+};
+
+export type ExerciseUpdate = {
+    title?: (string | null);
+    description?: (string | null);
+};
+
 export type HTTPValidationError = {
     detail?: Array<ValidationError>;
 };
@@ -106,6 +127,60 @@ export type ValidationError = {
     msg: string;
     type: string;
 };
+
+export type WorkoutCreate = {
+    title: string;
+    description?: (string | null);
+    exercises: {
+        [key: string]: unknown;
+    };
+};
+
+export type WorkoutPublic = {
+    title: string;
+    description?: (string | null);
+    id: string;
+    owner_id: string;
+    exercises: {
+        [key: string]: unknown;
+    };
+};
+
+export type WorkoutsPublic = {
+    data: Array<WorkoutPublic>;
+    count: number;
+};
+
+export type WorkoutUpdate = {
+    title?: (string | null);
+    description?: (string | null);
+};
+
+export type ExercisesReadItemsData = {
+    limit?: number;
+    skip?: number;
+};
+
+export type ExercisesReadItemsResponse = (ExercisesPublic);
+
+export type ExercisesCreateExerciseData = {
+    requestBody: ExerciseCreate;
+};
+
+export type ExercisesCreateExerciseResponse = (ExercisePublic);
+
+export type ExercisesReadExerciseData = {
+    id: string;
+};
+
+export type ExercisesReadExerciseResponse = (ExercisePublic);
+
+export type ExercisesUpdateItemData = {
+    id: string;
+    requestBody: ExerciseUpdate;
+};
+
+export type ExercisesUpdateItemResponse = (ExercisePublic);
 
 export type ItemsReadItemsData = {
     limit?: number;
@@ -232,3 +307,35 @@ export type UtilsTestEmailData = {
 export type UtilsTestEmailResponse = (Message);
 
 export type UtilsHealthCheckResponse = (boolean);
+
+export type WorkoutReadWorkoutsData = {
+    limit?: number;
+    skip?: number;
+};
+
+export type WorkoutReadWorkoutsResponse = (WorkoutsPublic);
+
+export type WorkoutCreateWorkoutData = {
+    requestBody: WorkoutCreate;
+};
+
+export type WorkoutCreateWorkoutResponse = (WorkoutPublic);
+
+export type WorkoutReadWorkoutData = {
+    id: string;
+};
+
+export type WorkoutReadWorkoutResponse = (WorkoutPublic);
+
+export type WorkoutUpdateWorkoutData = {
+    id: string;
+    requestBody: WorkoutUpdate;
+};
+
+export type WorkoutUpdateWorkoutResponse = (WorkoutPublic);
+
+export type WorkoutDeleteWorkoutData = {
+    id: string;
+};
+
+export type WorkoutDeleteWorkoutResponse = (Message);

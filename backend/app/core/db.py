@@ -42,4 +42,5 @@ def init_db(session: Session) -> None:
             title="curls",
             description="an exercise where you flex your biceps while holding dumbbells"
         )
-        item = crud.create_exercise(session=session, exercise_in=exercise_in)
+        exercise = crud.create_exercise(session=session, exercise_in=exercise_in)
+        #pass

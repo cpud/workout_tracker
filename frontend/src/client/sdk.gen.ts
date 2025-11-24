@@ -3,7 +3,97 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
+import type { ExercisesReadItemsData, ExercisesReadItemsResponse, ExercisesCreateExerciseData, ExercisesCreateExerciseResponse, ExercisesReadExerciseData, ExercisesReadExerciseResponse, ExercisesUpdateItemData, ExercisesUpdateItemResponse, ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse, WorkoutReadWorkoutsData, WorkoutReadWorkoutsResponse, WorkoutCreateWorkoutData, WorkoutCreateWorkoutResponse, WorkoutReadWorkoutData, WorkoutReadWorkoutResponse, WorkoutUpdateWorkoutData, WorkoutUpdateWorkoutResponse, WorkoutDeleteWorkoutData, WorkoutDeleteWorkoutResponse } from './types.gen';
+
+export class ExercisesService {
+    /**
+     * Read Items
+     * Retrieve exercises.
+     * @param data The data for the request.
+     * @param data.skip
+     * @param data.limit
+     * @returns ExercisesPublic Successful Response
+     * @throws ApiError
+     */
+    public static readItems(data: ExercisesReadItemsData = {}): CancelablePromise<ExercisesReadItemsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/exercises/',
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Create Exercise
+     * Create new exercise.
+     * @param data The data for the request.
+     * @param data.requestBody
+     * @returns ExercisePublic Successful Response
+     * @throws ApiError
+     */
+    public static createExercise(data: ExercisesCreateExerciseData): CancelablePromise<ExercisesCreateExerciseResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/exercises/',
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Read Exercise
+     * Get exercise by ID.
+     * @param data The data for the request.
+     * @param data.id
+     * @returns ExercisePublic Successful Response
+     * @throws ApiError
+     */
+    public static readExercise(data: ExercisesReadExerciseData): CancelablePromise<ExercisesReadExerciseResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/exercises/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Update Item
+     * Update an exercise.
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.requestBody
+     * @returns ExercisePublic Successful Response
+     * @throws ApiError
+     */
+    public static updateItem(data: ExercisesUpdateItemData): CancelablePromise<ExercisesUpdateItemResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/v1/exercises/{id}',
+            path: {
+                id: data.id
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+}
 
 export class ItemsService {
     /**
@@ -463,6 +553,117 @@ export class UtilsService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/utils/health-check/'
+        });
+    }
+}
+
+export class WorkoutService {
+    /**
+     * Read Workouts
+     * Retrieve workouts.
+     * @param data The data for the request.
+     * @param data.skip
+     * @param data.limit
+     * @returns WorkoutsPublic Successful Response
+     * @throws ApiError
+     */
+    public static readWorkouts(data: WorkoutReadWorkoutsData = {}): CancelablePromise<WorkoutReadWorkoutsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/workouts/',
+            query: {
+                skip: data.skip,
+                limit: data.limit
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Create Workout
+     * Create new workout.
+     * @param data The data for the request.
+     * @param data.requestBody
+     * @returns WorkoutPublic Successful Response
+     * @throws ApiError
+     */
+    public static createWorkout(data: WorkoutCreateWorkoutData): CancelablePromise<WorkoutCreateWorkoutResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/workouts/',
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Read Workout
+     * Get workout by ID.
+     * @param data The data for the request.
+     * @param data.id
+     * @returns WorkoutPublic Successful Response
+     * @throws ApiError
+     */
+    public static readWorkout(data: WorkoutReadWorkoutData): CancelablePromise<WorkoutReadWorkoutResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/workouts/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Update Workout
+     * Update a workout.
+     * @param data The data for the request.
+     * @param data.id
+     * @param data.requestBody
+     * @returns WorkoutPublic Successful Response
+     * @throws ApiError
+     */
+    public static updateWorkout(data: WorkoutUpdateWorkoutData): CancelablePromise<WorkoutUpdateWorkoutResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/v1/workouts/{id}',
+            path: {
+                id: data.id
+            },
+            body: data.requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: 'Validation Error'
+            }
+        });
+    }
+    
+    /**
+     * Delete Workout
+     * Delete a workout.
+     * @param data The data for the request.
+     * @param data.id
+     * @returns Message Successful Response
+     * @throws ApiError
+     */
+    public static deleteWorkout(data: WorkoutDeleteWorkoutData): CancelablePromise<WorkoutDeleteWorkoutResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/workouts/{id}',
+            path: {
+                id: data.id
+            },
+            errors: {
+                422: 'Validation Error'
+            }
         });
     }
 }
