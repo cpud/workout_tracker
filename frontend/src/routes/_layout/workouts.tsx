@@ -11,9 +11,9 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { FiSearch } from "react-icons/fi"
 import { z } from "zod"
 
-import { ItemsService } from "@/client"
+import { WorkoutService } from "@/client"
 import { ItemActionsMenu } from "@/components/Common/ItemActionsMenu"
-import AddItem from "@/components/Items/AddItem"
+import AddWorkout from "@/components/Workouts/AddWorkout"
 import PendingItems from "@/components/Pending/PendingItems"
 import {
   PaginationItems,
@@ -22,37 +22,37 @@ import {
   PaginationRoot,
 } from "@/components/ui/pagination.tsx"
 
-const itemsSearchSchema = z.object({
+const workoutsSearchSchema = z.object({
   page: z.number().catch(1),
 })
 
 const PER_PAGE = 5
 
-function getItemsQueryOptions({ page }: { page: number }) {
+function getWorkoutsQueryOptions({ page }: { page: number }) {
   return {
     queryFn: () =>
-      ItemsService.readItems({ skip: (page - 1) * PER_PAGE, limit: PER_PAGE }),
-    queryKey: ["items", { page }],
+      WorkoutService.readWorkouts({ skip: (page - 1) * PER_PAGE, limit: PER_PAGE }),
+    queryKey: ["workouts", { page }],
   }
 }
 
-export const Route = createFileRoute("/_layout/exercises")({
-  component: Items,
-  validateSearch: (search) => itemsSearchSchema.parse(search),
+export const Route = createFileRoute("/_layout/workouts")({
+  component: Workouts,
+  validateSearch: (search) => workoutsSearchSchema.parse(search),
 })
 
-function ItemsTable() {
+function WorkoutsTable() {
   const navigate = useNavigate({ from: Route.fullPath })
   const { page } = Route.useSearch()
 
   const { data, isLoading, isPlaceholderData } = useQuery({
-    ...getItemsQueryOptions({ page }),
+    ...getWorkoutsQueryOptions({ page }),
     placeholderData: (prevData) => prevData,
   })
 
   const setPage = (page: number) => {
     navigate({
-      to: "/items",
+      to: "/workouts",
       search: (prev) => ({ ...prev, page }),
     })
   }
@@ -87,9 +87,9 @@ function ItemsTable() {
       <Table.Root size={{ base: "sm", md: "md" }}>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader w="sm">ID</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Title</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Description</Table.ColumnHeader>
+            <Table.ColumnHeader w="sm">Exercises</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Actions</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
@@ -97,17 +97,17 @@ function ItemsTable() {
           {items?.map((item) => (
             <Table.Row key={item.id} opacity={isPlaceholderData ? 0.5 : 1}>
               <Table.Cell truncate maxW="sm">
-                {item.id}
+                {item.title}
               </Table.Cell>
               <Table.Cell truncate maxW="sm">
-                {item.title}
+                {item.description}
               </Table.Cell>
               <Table.Cell
                 color={!item.description ? "gray" : "inherit"}
                 truncate
                 maxW="30%"
               >
-                {item.description || "N/A"}
+                {JSON.stringify(item.exercises.exercises)}
               </Table.Cell>
               <Table.Cell>
                 <ItemActionsMenu item={item} />
@@ -133,14 +133,14 @@ function ItemsTable() {
   )
 }
 
-function Items() {
+function Workouts() {
   return (
     <Container maxW="full">
       <Heading size="lg" pt={12}>
         Workouts Management
       </Heading>
-      <AddItem />
-      <ItemsTable />
+      <AddWorkout />
+      <WorkoutsTable />
     </Container>
   )
 }
